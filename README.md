@@ -1,2 +1,1 @@
-# Quit Together App
- A Flutter + Firebase app where you can match with someone around the world who's trying to quit the same bad habit (junk food, procrastination, social media).
+A minimal, customizable Pomodoro-style productivity app built with Flutter and Firebase. Features adjustable focus sessions, task tracking, distraction monitoring, and personalized statistics to help you stay focused and in control.
