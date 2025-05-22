@@ -9,7 +9,8 @@ class MainTimer extends StatefulWidget {
 }
 
 class _MainTimerState extends State<MainTimer> {
-  int secondsLeft = 1500;
+  int totalTime = 1800;
+  int secondsLeft = 1800;
   Timer? timer;
   bool isRunning = false;
 
@@ -18,6 +19,7 @@ class _MainTimerState extends State<MainTimer> {
 
     setState(() {
       isRunning = true;
+      secondsLeft = totalTime;
     });
 
     timer = Timer.periodic(const Duration(seconds: 1), (timerCallback) {
@@ -48,9 +50,29 @@ class _MainTimerState extends State<MainTimer> {
       timer = null;
     }
     setState(() {
-      secondsLeft = 1500;
+      secondsLeft = totalTime;
       isRunning = false;
     });
+  }
+
+  void increaseTime() {
+    if (!isRunning) {
+      setState(() {
+        totalTime += 1800;
+        secondsLeft = totalTime;
+      });
+    }
+  }
+
+  void decreaseTime() {
+    if (!isRunning) {
+      setState(() {
+        if (totalTime > 1800) {
+          totalTime -= 1800;
+          secondsLeft = totalTime;
+        }
+      });
+    }
   }
 
   String formatTime(int seconds) {
@@ -61,58 +83,92 @@ class _MainTimerState extends State<MainTimer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 300,
-            height: 300,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.blue, width: 8),
-            ),
-            child: Center(
-              child: Text(
-                formatTime(secondsLeft),
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 300,
+          height: 300,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.blue, width: 8),
           ),
-
-          const SizedBox(height: 50),
-
-          Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
+              IconButton(
                 onPressed: () {
-                  startTimer();
+                  decreaseTime();
                 },
-                child: const Icon(Icons.play_arrow),
+                icon: Icon(Icons.keyboard_arrow_up_rounded),
+                iconSize: 50,
               ),
 
-              const SizedBox(width: 10),
+              const SizedBox(height: 30),
 
-              ElevatedButton(
-                onPressed: () {
-                  pauseTimer();
-                },
-                child: const Icon(Icons.pause),
+              Text(
+                formatTime(secondsLeft),
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
               ),
 
-              const SizedBox(width: 10),
+              const SizedBox(height: 30),
 
-              ElevatedButton(
+              IconButton(
                 onPressed: () {
-                  stopTimer();
+                  increaseTime();
                 },
-                child: const Icon(Icons.stop),
+                icon: Icon(Icons.keyboard_arrow_down_rounded),
+                iconSize: 50,
               ),
             ],
           ),
-        ],
-      ),
+        ),
+
+        const SizedBox(height: 50),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                startTimer();
+              },
+              child: const Icon(Icons.play_arrow),
+            ),
+
+            const SizedBox(width: 10),
+
+            ElevatedButton(
+              onPressed: () {
+                pauseTimer();
+              },
+              child: const Icon(Icons.pause),
+            ),
+
+            const SizedBox(width: 10),
+
+            ElevatedButton(
+              onPressed: () {
+                stopTimer();
+              },
+              child: const Icon(Icons.stop),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 50),
+
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Current Task",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const Text("Study"),
+          ],
+        ),
+      ],
     );
   }
 }
