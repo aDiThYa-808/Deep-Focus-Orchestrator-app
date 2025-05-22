@@ -1,3 +1,6 @@
+import "package:app_frontend/bars/Top_Nav_Bar.dart";
+import "package:app_frontend/bars/Bottom_Nav_Bar.dart";
+import "package:app_frontend/screens/home_screen.dart";
 import "package:flutter/material.dart";
 
 void main() {
@@ -17,26 +20,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       // Root widget
       home: Scaffold(
-        appBar: AppBar(title: const Text('Quit Together')),
-        body: Center(
-          child: Builder(
-            builder: (context) {
-              return Column(
-                children: [
-                  const Text('Hello, World!'),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      print('Click!');
-                    },
-                    child: const Text('Click'),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
+        appBar: const TopNav(),
+
+
+        bottomNavigationBar: BottomNavBar(),
+      )
     );
   }
 }
