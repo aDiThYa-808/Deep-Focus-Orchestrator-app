@@ -16,14 +16,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: const TopNav(),
 
-      body: Column(
+      body: Container(
+        color: Color(0xFF1B263B),
+        child:Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           MainTimer(),
         ],
       ),
-      
+      ), 
+
       bottomNavigationBar: BottomNavBar(),
-    ); //Scaffold
+    ); 
   }
 }

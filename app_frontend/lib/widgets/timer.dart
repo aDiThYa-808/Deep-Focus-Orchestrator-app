@@ -9,17 +9,18 @@ class MainTimer extends StatefulWidget {
 }
 
 class _MainTimerState extends State<MainTimer> {
-  int totalTime = 1800;
-  int secondsLeft = 1800;
+  int totalTime = 900;
+  int secondsLeft = 900;
   Timer? timer;
   bool isRunning = false;
+  bool isPaused = false;
 
   void startTimer() {
     if (isRunning || timer != null) return;
 
     setState(() {
+      isPaused = false;
       isRunning = true;
-      secondsLeft = totalTime;
     });
 
     timer = Timer.periodic(const Duration(seconds: 1), (timerCallback) {
@@ -39,6 +40,7 @@ class _MainTimerState extends State<MainTimer> {
       timer!.cancel();
       timer = null;
       setState(() {
+        isPaused = true;
         isRunning = false;
       });
     }
@@ -52,23 +54,24 @@ class _MainTimerState extends State<MainTimer> {
     setState(() {
       secondsLeft = totalTime;
       isRunning = false;
+      isPaused = false;
     });
   }
 
   void increaseTime() {
-    if (!isRunning) {
+    if (!isRunning && !isPaused) {
       setState(() {
-        totalTime += 1800;
+        totalTime += 900;
         secondsLeft = totalTime;
       });
     }
   }
 
   void decreaseTime() {
-    if (!isRunning) {
+    if (!isRunning && !isPaused) {
       setState(() {
-        if (totalTime > 1800) {
-          totalTime -= 1800;
+        if (totalTime > 900) {
+          totalTime -= 900;
           secondsLeft = totalTime;
         }
       });
@@ -91,34 +94,45 @@ class _MainTimerState extends State<MainTimer> {
           height: 300,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.blue, width: 8),
+            border: Border.all(color: Color(0xFF778DA9), width: 8),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(
+              if(!isRunning && !isPaused)
+                IconButton(
                 onPressed: () {
                   decreaseTime();
                 },
-                icon: Icon(Icons.keyboard_arrow_up_rounded),
-                iconSize: 50,
+                icon: Icon(Icons.keyboard_arrow_up_rounded, size: 50, color: Color(0xFFE0E1DD)),
+              ),
+              
+              
+
+              const SizedBox(height: 25),
+
+              AnimatedDefaultTextStyle(
+                duration: Duration(milliseconds: 50),
+                style: TextStyle(
+                  fontSize: isRunning? 50:40, 
+                  fontWeight: FontWeight.bold,
+                  color: isRunning? Colors.white : Color(0xFFE0E1DD)
+                  , 
+                  ),
+
+                child: Text(
+                  formatTime(secondsLeft),
+                ),
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 25),
 
-              Text(
-                formatTime(secondsLeft),
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 30),
-
+            if(!isRunning && !isPaused)
               IconButton(
                 onPressed: () {
                   increaseTime();
                 },
-                icon: Icon(Icons.keyboard_arrow_down_rounded),
-                iconSize: 50,
+                icon: Icon(Icons.keyboard_arrow_down_rounded, size: 50,color: Color(0xFFE0E1DD),),
               ),
             ],
           ),
@@ -133,7 +147,8 @@ class _MainTimerState extends State<MainTimer> {
               onPressed: () {
                 startTimer();
               },
-              child: const Icon(Icons.play_arrow),
+              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF415A77)),
+              child: const Icon(Icons.play_arrow, color: Color(0xFFE0E1DD),),
             ),
 
             const SizedBox(width: 10),
@@ -142,7 +157,8 @@ class _MainTimerState extends State<MainTimer> {
               onPressed: () {
                 pauseTimer();
               },
-              child: const Icon(Icons.pause),
+              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF415A77)),
+              child: const Icon(Icons.pause,color: Color(0xFFE0E1DD),),
             ),
 
             const SizedBox(width: 10),
@@ -151,7 +167,8 @@ class _MainTimerState extends State<MainTimer> {
               onPressed: () {
                 stopTimer();
               },
-              child: const Icon(Icons.stop),
+              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF415A77)),
+              child: const Icon(Icons.stop, color: Color(0xFFE0E1DD),),
             ),
           ],
         ),
@@ -163,9 +180,9 @@ class _MainTimerState extends State<MainTimer> {
           children: [
             const Text(
               "Current Task",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFE0E1DD)),
             ),
-            const Text("Study"),
+            const Text("Study",style: TextStyle(color: Color(0xFFE0E1DD) ),),
           ],
         ),
       ],
