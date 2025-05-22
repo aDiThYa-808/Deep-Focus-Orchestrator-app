@@ -17,9 +17,9 @@ class _MainTimerState extends State<MainTimer> {
     if (isRunning || timer != null) return;
 
     setState(() {
-      isRunning = true;  
+      isRunning = true;
     });
-    
+
     timer = Timer.periodic(const Duration(seconds: 1), (timerCallback) {
       if (secondsLeft > 0) {
         setState(() {
