@@ -17,16 +17,20 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: const TopNav(),
 
       body: Container(
-        color: Color(0xFF1B263B),
-        child:Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          MainTimer(),
-        ],
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF0C0821), Color(0xFF100835)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [MainTimer()],
+        ),
       ),
-      ), 
 
       bottomNavigationBar: BottomNavBar(),
-    ); 
+    );
   }
 }

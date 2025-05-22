@@ -90,49 +90,85 @@ class _MainTimerState extends State<MainTimer> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: 300,
-          height: 300,
+          width: 350,
+          height: 350,
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Color(0xFF778DA9), width: 8),
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(10),
+            color: Color(0xFF1A163C),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              if(!isRunning && !isPaused)
-                IconButton(
-                onPressed: () {
-                  decreaseTime();
-                },
-                icon: Icon(Icons.keyboard_arrow_up_rounded, size: 50, color: Color(0xFFE0E1DD)),
-              ),
-              
-              
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
 
-              const SizedBox(height: 25),
+                children: [
+                  if (!isRunning && !isPaused)
+                    IconButton(
+                      onPressed: () {
+                        decreaseTime();
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_up_rounded,
+                        size: 50,
+                        color: Color(0xFFB2BCBD),
+                      ),
+                    ),
 
-              AnimatedDefaultTextStyle(
-                duration: Duration(milliseconds: 50),
-                style: TextStyle(
-                  fontSize: isRunning? 50:40, 
-                  fontWeight: FontWeight.bold,
-                  color: isRunning? Colors.white : Color(0xFFE0E1DD)
-                  , 
+                  const SizedBox(height: 25),
+
+                  AnimatedDefaultTextStyle(
+                    duration: Duration(milliseconds: 50),
+                    style: TextStyle(
+                      fontSize: 80,
+                      fontWeight: FontWeight.bold,
+                      color: isRunning ? Colors.white : Color(0xFFB2BCBD),
+                    ),
+
+                    child: Text(formatTime(secondsLeft)),
                   ),
 
-                child: Text(
-                  formatTime(secondsLeft),
-                ),
+                  const SizedBox(height: 25),
+
+                  if (!isRunning && !isPaused)
+                    IconButton(
+                      onPressed: () {
+                        increaseTime();
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 50,
+                        color: Color(0xFFB2BCBD),
+                      ),
+                    ),
+                ],
               ),
 
-              const SizedBox(height: 25),
-
-            if(!isRunning && !isPaused)
-              IconButton(
-                onPressed: () {
-                  increaseTime();
-                },
-                icon: Icon(Icons.keyboard_arrow_down_rounded, size: 50,color: Color(0xFFE0E1DD),),
+              SizedBox(
+                height: 300,
+                width: 60,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1A163C), // Background color
+                    border: Border.all(color: Color(0xFFB2BCBD), width: 2),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                      12,
+                    ), // Ensure content also clips to rounded corners
+                    child: RotatedBox(
+                      quarterTurns: -1,
+                      child: LinearProgressIndicator(
+                        value: secondsLeft / totalTime,
+                        backgroundColor:
+                            Colors.transparent, // Already set by container
+                        color: Color(0xFF26137C),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -147,28 +183,45 @@ class _MainTimerState extends State<MainTimer> {
               onPressed: () {
                 startTimer();
               },
-              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF415A77)),
-              child: const Icon(Icons.play_arrow, color: Color(0xFFE0E1DD),),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF1A163C),
+                shape: RoundedRectangleBorder(),
+              ),
+              child: const Icon(
+                Icons.play_arrow,
+                color: Color(0xFFB2BCBD),
+                size: 40,
+              ),
             ),
 
-            const SizedBox(width: 10),
+            const SizedBox(width: 5),
 
             ElevatedButton(
               onPressed: () {
                 pauseTimer();
               },
-              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF415A77)),
-              child: const Icon(Icons.pause,color: Color(0xFFE0E1DD),),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF1A163C),
+                shape: RoundedRectangleBorder(),
+              ),
+              child: const Icon(
+                Icons.pause,
+                color: Color(0xFFB2BCBD),
+                size: 40,
+              ),
             ),
 
-            const SizedBox(width: 10),
+            const SizedBox(width: 5),
 
             ElevatedButton(
               onPressed: () {
                 stopTimer();
               },
-              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF415A77)),
-              child: const Icon(Icons.stop, color: Color(0xFFE0E1DD),),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF1A163C),
+                shape: RoundedRectangleBorder(),
+              ),
+              child: const Icon(Icons.stop, color: Color(0xFFB2BCBD), size: 40),
             ),
           ],
         ),
@@ -180,9 +233,13 @@ class _MainTimerState extends State<MainTimer> {
           children: [
             const Text(
               "Current Task",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFE0E1DD)),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFB2BCBD),
+              ),
             ),
-            const Text("Study",style: TextStyle(color: Color(0xFFE0E1DD) ),),
+            const Text("Study", style: TextStyle(color: Color(0xFFB2BCBD))),
           ],
         ),
       ],

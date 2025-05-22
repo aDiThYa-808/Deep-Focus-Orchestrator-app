@@ -9,12 +9,23 @@ class TopNav extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFF1B263B),
+      backgroundColor: Color(0xFF0C0821),
       title: const Text(
         'Deep Focus',
-        style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Color(0xFFE0E1DD)),
+        style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFFB2BCBD),
+        ),
       ),
-      centerTitle: true,
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.account_circle_outlined),
+          color: Color(0xFFB2BCBD),
+          iconSize: 30,
+        ),
+      ],
     );
   }
 }

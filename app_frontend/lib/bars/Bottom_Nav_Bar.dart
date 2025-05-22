@@ -11,21 +11,40 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: Color(0xFF0D1B2A),
-      
+      type: BottomNavigationBarType.fixed,
+      elevation: 0,
+      backgroundColor: Color(0xFF100835),
+
       showSelectedLabels: false,
       showUnselectedLabels: false,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home, color:Color(0xFFE0E1DD)),
+          icon: Icon(Icons.timer_outlined, color: Color(0xFFB2BCBD), size: 30),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.task, color:Color(0xFFE0E1DD),),
+          icon: Icon(
+            Icons.list_alt_rounded,
+            color: Color(0xFFB2BCBD),
+            size: 30,
+          ),
           label: 'Tasks',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person, color:Color(0xFFE0E1DD)),
+          icon: Icon(
+            Icons.query_stats_rounded,
+            color: Color(0xFFB2BCBD),
+            size: 30,
+          ),
+          label: 'Profile',
+        ),
+
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.queue_music_outlined,
+            color: Color(0xFFB2BCBD),
+            size: 30,
+          ),
           label: 'Profile',
         ),
       ],
