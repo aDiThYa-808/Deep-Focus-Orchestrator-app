@@ -86,68 +86,95 @@ class _MainTimerState extends State<MainTimer> {
     return '$minutes:$secs';
   }
 
-  
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
 
-
-        //The Timer along with arrow buttons:
-        SizedBox(
-          width: 350,
-          height: 350,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-            children: [
-              if (!isRunning && !isPaused)
-                IconButton(
-                  onPressed: () {
-                    decreaseTime();
-                  },
-                  icon: Icon(
-                    Icons.keyboard_arrow_up_rounded,
-                    size: 50,
-                    color: Color(0xFFB2BCBD),
-                  ),
-                ),
-
-              const SizedBox(height: 5),
-
-              AnimatedDefaultTextStyle(
-                duration: Duration(milliseconds: 50),
-                style: TextStyle(
-                  fontSize: isRunning ? 80 : 60,
-                  fontWeight: FontWeight.bold,
-                  color: isRunning ? Colors.white : Color(0xFFB2BCBD),
-                ),
-
-                child: Text(formatTime(secondsLeft)),
+        //Timer and Progress Bar:
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+      
+            //The Timer along with arrow buttons:
+            Container(
+              width: 270,
+              height: 300,
+              decoration: BoxDecoration(
+                color: Color(0xFF121212),
+                borderRadius: BorderRadius.all(Radius.circular(10))
               ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-              const SizedBox(height: 5),
+                children: [
+                  if (!isRunning && !isPaused)
+                    IconButton(
+                      onPressed: () {
+                        decreaseTime();
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_up_rounded,
+                        size: 50,
+                        color: Color(0xFFB2BCBD),
+                      ),
+                    ),
 
-              if (!isRunning && !isPaused)
-                IconButton(
-                  onPressed: () {
-                    increaseTime();
-                  },
-                  icon: Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    size: 50,
-                    color: Color(0xFFB2BCBD),
+                  const SizedBox(height: 5),
+
+                  AnimatedDefaultTextStyle(
+                    duration: Duration(milliseconds: 50),
+                    style: TextStyle(
+                      fontSize: isRunning ? 80 : 60,
+                      fontWeight: FontWeight.bold,
+                      color: isRunning ? Colors.white : Color(0xFFB2BCBD),
+                    ),
+
+                    child: Text(formatTime(secondsLeft)),
                   ),
+
+                  const SizedBox(height: 5),
+
+                  if (!isRunning && !isPaused)
+                    IconButton(
+                      onPressed: () {
+                        increaseTime();
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 50,
+                        color: Color(0xFFB2BCBD),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+
+            Container(
+              height: 300,
+              width: 80,
+              decoration: BoxDecoration(
+                color: Color(0xFF121212),
+                borderRadius: BorderRadius.all(Radius.circular(10))
+              ),
+              child: RotatedBox(
+                quarterTurns: -1,
+                child: LinearProgressIndicator(
+                  value: secondsLeft/totalTime,
+                  backgroundColor: Colors.transparent,
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1DB954 )),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  minHeight: 300,
+                  
                 ),
-            ],
-          ),
+                ),
+            )
+
+          ],
         ),
 
+        
         const SizedBox(height: 50),
 
         //Start,Pause and Stop buttons:

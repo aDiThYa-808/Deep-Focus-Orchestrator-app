@@ -9,7 +9,7 @@ class TopNav extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFF121212),
+      backgroundColor: Color(0xFF0A0A0A),
       title: const Text(
         'Deep Focus',
         style: TextStyle(

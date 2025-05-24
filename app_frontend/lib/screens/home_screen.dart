@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       body: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF121212),
+          color: Color(0xFF0A0A0A),
           
         ),
         child: Column(

@@ -13,7 +13,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       elevation: 0,
-      backgroundColor: Color(0xFF121212),
+      backgroundColor: Color(0xFF0A0A0A),
       
       showSelectedLabels: false,
       showUnselectedLabels: false,
