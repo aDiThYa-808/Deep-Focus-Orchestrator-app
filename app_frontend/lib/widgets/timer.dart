@@ -89,21 +89,61 @@ class _MainTimerState extends State<MainTimer> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                splashFactory: NoSplash.splashFactory,
+                minimumSize: Size(170, 100),
+                backgroundColor: Color(0xFF1A1A1A),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
+              child: Icon(
+                Icons.volume_off_rounded,
+                size: 30,
+                color: Color(0xFFFFFFFF),
+              ),
+            ),
+
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                splashFactory: NoSplash.splashFactory,
+                minimumSize: Size(170, 100),
+                backgroundColor: Color(0xFF1A1A1A),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+              ),
+              child: Icon(
+                Icons.do_not_disturb_on_rounded,
+                size: 30,
+                color: Color(0xFFFFFFFF),
+              ),
+            ),
+          ],
+        ),
+
+        SizedBox(height: 20),
 
         //Timer and Progress Bar:
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-      
             //The Timer along with arrow buttons:
             Container(
               width: 270,
               height: 300,
               decoration: BoxDecoration(
-                color: Color(0xFF121212),
-                borderRadius: BorderRadius.all(Radius.circular(10))
+                color: Color(0xFF1A1A1A),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -114,10 +154,13 @@ class _MainTimerState extends State<MainTimer> {
                       onPressed: () {
                         decreaseTime();
                       },
+                      style: IconButton.styleFrom(
+                        splashFactory: NoSplash.splashFactory,
+                      ),
                       icon: Icon(
                         Icons.keyboard_arrow_up_rounded,
                         size: 50,
-                        color: Color(0xFFB2BCBD),
+                        color: Color(0xFF8E8E93),
                       ),
                     ),
 
@@ -128,7 +171,7 @@ class _MainTimerState extends State<MainTimer> {
                     style: TextStyle(
                       fontSize: isRunning ? 80 : 60,
                       fontWeight: FontWeight.bold,
-                      color: isRunning ? Colors.white : Color(0xFFB2BCBD),
+                      color: isRunning ? Colors.white : Color(0xFF8E8E93),
                     ),
 
                     child: Text(formatTime(secondsLeft)),
@@ -141,112 +184,136 @@ class _MainTimerState extends State<MainTimer> {
                       onPressed: () {
                         increaseTime();
                       },
+                      style: IconButton.styleFrom(
+                        splashFactory: NoSplash.splashFactory,
+                      ),
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
                         size: 50,
-                        color: Color(0xFFB2BCBD),
+                        color: Color(0xFF8E8E93),
                       ),
                     ),
                 ],
               ),
             ),
 
+            //Rotated Linear progress bar:
             Container(
               height: 300,
               width: 80,
               decoration: BoxDecoration(
-                color: Color(0xFF121212),
-                borderRadius: BorderRadius.all(Radius.circular(10))
+                color: Color(0xFF1A1A1A),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: RotatedBox(
                 quarterTurns: -1,
                 child: LinearProgressIndicator(
-                  value: secondsLeft/totalTime,
+                  value: secondsLeft / totalTime,
                   backgroundColor: Colors.transparent,
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1DB954 )),
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF2452FF)),
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   minHeight: 300,
-                  
                 ),
-                ),
-            )
-
+              ),
+            ),
           ],
         ),
 
-        
-        const SizedBox(height: 50),
+        SizedBox(height: 20),
 
         //Start,Pause and Stop buttons:
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             AnimatedSwitcher(
               duration: Duration(milliseconds: 200),
               child:
                   isRunning
-                      ? IconButton(
+                      ? ElevatedButton(
                         onPressed: () {
                           pauseTimer();
                         },
-                        style: IconButton.styleFrom(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(170, 60),
                           splashFactory: NoSplash.splashFactory,
-                          backgroundColor: Color(0xFF2C2C2E),
+                          backgroundColor: Color(0xFF1A1A1A),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
                         ),
-                        icon: const Icon(
-                          Icons.pause,
-                          color: Color(0xFFB2BCBD),
+                        child: const Icon(
+                          Icons.pause_rounded,
+                          color: Color(0xFFFFFFFF),
                           size: 40,
                         ),
                       )
-                      : IconButton(
+                      : ElevatedButton(
                         onPressed: () {
                           startTimer();
                         },
-                        style: IconButton.styleFrom(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          minimumSize: Size(170, 60),
                           splashFactory: NoSplash.splashFactory,
-
-                          backgroundColor: Color(0xFF007AFF),
+                          backgroundColor: Color(0xFF3778FF),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
                         ),
-                        icon: const Icon(
-                          Icons.play_arrow,
-                          color: Color(0xFFB2BCBD),
+                        child: const Icon(
+                          Icons.play_arrow_rounded,
+                          color: Color(0xFFFFFFFF),
                           size: 40,
                         ),
                       ),
             ),
 
-            const SizedBox(width: 40),
-
-            IconButton(
+            ElevatedButton(
               onPressed: () {
                 stopTimer();
               },
-              style: IconButton.styleFrom(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(170, 60),
                 splashFactory: NoSplash.splashFactory,
-                backgroundColor: Color(0xFFFF3B30),
+                backgroundColor: Color(0xFF8B0000),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
               ),
-              icon: const Icon(Icons.stop, color: Color(0xFFB2BCBD), size: 40),
+              child: const Icon(
+                Icons.stop_rounded,
+                color: Color(0xFFFFFFFF),
+                size: 40,
+              ),
             ),
           ],
         ),
 
-        const SizedBox(height: 50),
+        const SizedBox(height: 20),
 
         //Current task display
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "Current Task",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFFB2BCBD),
+        Container(
+          width: 360,
+          height: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: Color(0xFF1A1A1A),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Text(
+                "Current Task",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF8E8E93),
+                ),
               ),
-            ),
-            const Text("Study", style: TextStyle(color: Color(0xFFB2BCBD))),
-          ],
+              const Text("Study", style: TextStyle(color: Color(0xFF8E8E93))),
+            ],
+          ),
         ),
       ],
     );

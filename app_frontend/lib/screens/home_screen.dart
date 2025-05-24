@@ -13,21 +13,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const TopNav(),
-
-      body: Container(
-        decoration: BoxDecoration(
-          color: Color(0xFF0A0A0A),
-          
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [MainTimer()],
-        ),
+    return Container(
+      decoration: BoxDecoration(color: Color(0xFF0E0E0E)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [MainTimer()],
       ),
-
-      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
