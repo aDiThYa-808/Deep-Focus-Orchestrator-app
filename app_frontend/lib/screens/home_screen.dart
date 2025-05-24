@@ -1,5 +1,5 @@
-import 'package:app_frontend/bars/Bottom_Nav_Bar.dart';
-import 'package:app_frontend/bars/Top_Nav_Bar.dart';
+import 'package:app_frontend/bars/bottom_nav_bar.dart';
+import 'package:app_frontend/bars/top_nav_bar.dart';
 import 'package:app_frontend/widgets/timer.dart';
 import 'package:flutter/material.dart';
 

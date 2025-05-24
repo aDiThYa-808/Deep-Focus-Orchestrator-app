@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class MainTimer extends StatefulWidget {
@@ -99,7 +99,7 @@ class _MainTimerState extends State<MainTimer> {
 
 
         //The Timer along with arrow buttons:
-        Container(
+        SizedBox(
           width: 350,
           height: 350,
           child: Column(
