@@ -13,20 +13,25 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       elevation: 0,
-      backgroundColor: Color(0xFF100835),
-
+      backgroundColor: Color(0xFF121212),
+      
       showSelectedLabels: false,
       showUnselectedLabels: false,
       items: const [
+    
         BottomNavigationBarItem(
-          icon: Icon(Icons.timer_outlined, color: Color(0xFFB2BCBD), size: 30),
+          icon: Icon(
+            Icons.timer_outlined, 
+            color: Color(0xFFB2BCBD), 
+            size: 25
+            ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.list_alt_rounded,
             color: Color(0xFFB2BCBD),
-            size: 30,
+            size: 25,
           ),
           label: 'Tasks',
         ),
@@ -34,7 +39,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           icon: Icon(
             Icons.query_stats_rounded,
             color: Color(0xFFB2BCBD),
-            size: 30,
+            size: 25,
           ),
           label: 'Profile',
         ),
@@ -43,7 +48,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           icon: Icon(
             Icons.queue_music_outlined,
             color: Color(0xFFB2BCBD),
-            size: 30,
+            size: 25,
           ),
           label: 'Profile',
         ),

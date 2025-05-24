@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class MainTimer extends StatefulWidget {
@@ -81,153 +82,131 @@ class _MainTimerState extends State<MainTimer> {
   String formatTime(int seconds) {
     final minutes = (seconds ~/ 60).toString().padLeft(2, '0');
     final secs = (seconds % 60).toString().padLeft(2, '0');
+
     return '$minutes:$secs';
   }
+
+  
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+
+
+        //The Timer along with arrow buttons:
         Container(
           width: 350,
           height: 350,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(10),
-            color: Color(0xFF1A163C),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-                children: [
-                  if (!isRunning && !isPaused)
-                    IconButton(
-                      onPressed: () {
-                        decreaseTime();
-                      },
-                      icon: Icon(
-                        Icons.keyboard_arrow_up_rounded,
-                        size: 50,
-                        color: Color(0xFFB2BCBD),
-                      ),
-                    ),
-
-                  const SizedBox(height: 25),
-
-                  AnimatedDefaultTextStyle(
-                    duration: Duration(milliseconds: 50),
-                    style: TextStyle(
-                      fontSize: 80,
-                      fontWeight: FontWeight.bold,
-                      color: isRunning ? Colors.white : Color(0xFFB2BCBD),
-                    ),
-
-                    child: Text(formatTime(secondsLeft)),
-                  ),
-
-                  const SizedBox(height: 25),
-
-                  if (!isRunning && !isPaused)
-                    IconButton(
-                      onPressed: () {
-                        increaseTime();
-                      },
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        size: 50,
-                        color: Color(0xFFB2BCBD),
-                      ),
-                    ),
-                ],
-              ),
-
-              SizedBox(
-                height: 300,
-                width: 60,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1A163C), // Background color
-                    border: Border.all(color: Color(0xFFB2BCBD), width: 2),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                      12,
-                    ), // Ensure content also clips to rounded corners
-                    child: RotatedBox(
-                      quarterTurns: -1,
-                      child: LinearProgressIndicator(
-                        value: secondsLeft / totalTime,
-                        backgroundColor:
-                            Colors.transparent, // Already set by container
-                        color: Color(0xFF26137C),
-                      ),
-                    ),
+              if (!isRunning && !isPaused)
+                IconButton(
+                  onPressed: () {
+                    decreaseTime();
+                  },
+                  icon: Icon(
+                    Icons.keyboard_arrow_up_rounded,
+                    size: 50,
+                    color: Color(0xFFB2BCBD),
                   ),
                 ),
+
+              const SizedBox(height: 5),
+
+              AnimatedDefaultTextStyle(
+                duration: Duration(milliseconds: 50),
+                style: TextStyle(
+                  fontSize: isRunning ? 80 : 60,
+                  fontWeight: FontWeight.bold,
+                  color: isRunning ? Colors.white : Color(0xFFB2BCBD),
+                ),
+
+                child: Text(formatTime(secondsLeft)),
               ),
+
+              const SizedBox(height: 5),
+
+              if (!isRunning && !isPaused)
+                IconButton(
+                  onPressed: () {
+                    increaseTime();
+                  },
+                  icon: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    size: 50,
+                    color: Color(0xFFB2BCBD),
+                  ),
+                ),
             ],
           ),
         ),
 
         const SizedBox(height: 50),
 
+        //Start,Pause and Stop buttons:
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                startTimer();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF1A163C),
-                shape: RoundedRectangleBorder(),
-              ),
-              child: const Icon(
-                Icons.play_arrow,
-                color: Color(0xFFB2BCBD),
-                size: 40,
-              ),
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 200),
+              child:
+                  isRunning
+                      ? IconButton(
+                        onPressed: () {
+                          pauseTimer();
+                        },
+                        style: IconButton.styleFrom(
+                          splashFactory: NoSplash.splashFactory,
+                          backgroundColor: Color(0xFF2C2C2E),
+                        ),
+                        icon: const Icon(
+                          Icons.pause,
+                          color: Color(0xFFB2BCBD),
+                          size: 40,
+                        ),
+                      )
+                      : IconButton(
+                        onPressed: () {
+                          startTimer();
+                        },
+                        style: IconButton.styleFrom(
+                          splashFactory: NoSplash.splashFactory,
+
+                          backgroundColor: Color(0xFF007AFF),
+                        ),
+                        icon: const Icon(
+                          Icons.play_arrow,
+                          color: Color(0xFFB2BCBD),
+                          size: 40,
+                        ),
+                      ),
             ),
 
-            const SizedBox(width: 5),
+            const SizedBox(width: 40),
 
-            ElevatedButton(
-              onPressed: () {
-                pauseTimer();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF1A163C),
-                shape: RoundedRectangleBorder(),
-              ),
-              child: const Icon(
-                Icons.pause,
-                color: Color(0xFFB2BCBD),
-                size: 40,
-              ),
-            ),
-
-            const SizedBox(width: 5),
-
-            ElevatedButton(
+            IconButton(
               onPressed: () {
                 stopTimer();
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF1A163C),
-                shape: RoundedRectangleBorder(),
+              style: IconButton.styleFrom(
+                splashFactory: NoSplash.splashFactory,
+                backgroundColor: Color(0xFFFF3B30),
               ),
-              child: const Icon(Icons.stop, color: Color(0xFFB2BCBD), size: 40),
+              icon: const Icon(Icons.stop, color: Color(0xFFB2BCBD), size: 40),
             ),
           ],
         ),
 
         const SizedBox(height: 50),
 
+        //Current task display
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

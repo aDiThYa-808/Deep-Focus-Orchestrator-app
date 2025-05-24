@@ -18,11 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF0C0821), Color(0xFF100835)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+          color: Color(0xFF121212),
+          
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
