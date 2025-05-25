@@ -1,3 +1,5 @@
+import 'package:app_frontend/theme/colors.dart';
+import 'package:app_frontend/widgets/date_item.dart';
 import 'package:flutter/material.dart';
 
 class SessionsScreen extends StatefulWidget {
@@ -8,13 +10,16 @@ class SessionsScreen extends StatefulWidget {
 }
 
 class _SessionsScreenState extends State<SessionsScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.primary,
       
       body: Column(
         children: [
+           buildDateScroll(), // Add this line
+          //Expanded(child: buildTaskList()),
 
         ],
       ),
@@ -22,10 +27,30 @@ class _SessionsScreenState extends State<SessionsScreen> {
     
       floatingActionButton: FloatingActionButton(
         onPressed: (){},
-
-        child: const Icon(Icons.add_rounded),
+        backgroundColor: AppColors.primaryButtonColor,
+        child: const Icon(
+          Icons.add_rounded,
+          color: AppColors.constantIconColor,
+          ),
       ),
     
     );
   }
+
+  Widget buildDateScroll() {
+  final today = DateTime.now();
+  return SizedBox(
+    height: 72, // Fixed height for the date scroller
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: 14, // 2 weeks of dates
+      itemBuilder: (context, index) {
+        final date = today.add(Duration(days: index));
+        final isSelected = index == 0; // Auto-select today
+        return DateItem(date: date, isSelected: isSelected);
+      },
+    ),
+  );
+}
+
 }

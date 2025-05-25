@@ -12,9 +12,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: AppColors.primary),
-      child: Column(
+    return Scaffold(
+      backgroundColor:AppColors.primary,
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [MainTimer()],
       ),

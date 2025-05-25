@@ -6,6 +6,7 @@ abstract class AppColors {
   static const Color secondary = Color(0xFF1A1A1A);
 
   //icons
+  static const Color constantIconColor = Color(0xFFFFFFFF);
   static const Color selectedIconColor = Color(0xFF8AC6F8);
   static const Color unselectedIconColor = Color(0xFF8E8E93);
 

@@ -259,7 +259,7 @@ class _MainTimerState extends State<MainTimer> {
                         ),
                         child: const Icon(
                           Icons.pause_rounded,
-                          color: Color(0xFFFFFFFF),
+                          color: AppColors.constantIconColor,
                           size: 40,
                         ),
                       )
@@ -278,7 +278,7 @@ class _MainTimerState extends State<MainTimer> {
                         ),
                         child: const Icon(
                           Icons.play_arrow_rounded,
-                          color: Color(0xFFFFFFFF),
+                          color: AppColors.constantIconColor,
                           size: 40,
                         ),
                       ),
@@ -301,7 +301,7 @@ class _MainTimerState extends State<MainTimer> {
               ),
               child: const Icon(
                 Icons.stop_rounded,
-                color: Color(0xFFFFFFFF),
+                color: AppColors.constantIconColor,
                 size: 40,
               ),
             ),
