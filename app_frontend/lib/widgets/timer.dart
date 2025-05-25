@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_frontend/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class MainTimer extends StatefulWidget {
@@ -15,6 +16,7 @@ class _MainTimerState extends State<MainTimer> {
   Timer? timer;
   bool isRunning = false;
   bool isPaused = false;
+  bool timerIsActive = false;
 
   void startTimer() {
     if (isRunning || timer != null) return;
@@ -22,6 +24,7 @@ class _MainTimerState extends State<MainTimer> {
     setState(() {
       isPaused = false;
       isRunning = true;
+      timerIsActive = true;
     });
 
     timer = Timer.periodic(const Duration(seconds: 1), (timerCallback) {
@@ -56,13 +59,14 @@ class _MainTimerState extends State<MainTimer> {
       secondsLeft = totalTime;
       isRunning = false;
       isPaused = false;
+      timerIsActive = false;
     });
   }
 
   void increaseTime() {
     if (!isRunning && !isPaused) {
       setState(() {
-        totalTime += 900;
+        totalTime += 300;
         secondsLeft = totalTime;
       });
     }
@@ -71,8 +75,8 @@ class _MainTimerState extends State<MainTimer> {
   void decreaseTime() {
     if (!isRunning && !isPaused) {
       setState(() {
-        if (totalTime > 900) {
-          totalTime -= 900;
+        if (totalTime > 300) {
+          totalTime -= 300;
           secondsLeft = totalTime;
         }
       });
@@ -100,7 +104,7 @@ class _MainTimerState extends State<MainTimer> {
               style: ElevatedButton.styleFrom(
                 splashFactory: NoSplash.splashFactory,
                 minimumSize: Size(170, 100),
-                backgroundColor: Color(0xFF1A1A1A),
+                backgroundColor: AppColors.secondary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -117,7 +121,7 @@ class _MainTimerState extends State<MainTimer> {
               style: ElevatedButton.styleFrom(
                 splashFactory: NoSplash.splashFactory,
                 minimumSize: Size(170, 100),
-                backgroundColor: Color(0xFF1A1A1A),
+                backgroundColor: AppColors.secondary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -142,7 +146,11 @@ class _MainTimerState extends State<MainTimer> {
               width: 270,
               height: 300,
               decoration: BoxDecoration(
-                color: Color(0xFF1A1A1A),
+                color: AppColors.secondary,
+                border: Border.all(
+                  color: AppColors.hightlightColor,
+                  width: 2,
+                ),
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: Column(
@@ -160,7 +168,7 @@ class _MainTimerState extends State<MainTimer> {
                       icon: Icon(
                         Icons.keyboard_arrow_up_rounded,
                         size: 50,
-                        color: Color(0xFF8E8E93),
+                        color: AppColors.unselectedIconColor,
                       ),
                     ),
 
@@ -171,7 +179,10 @@ class _MainTimerState extends State<MainTimer> {
                     style: TextStyle(
                       fontSize: isRunning ? 80 : 60,
                       fontWeight: FontWeight.bold,
-                      color: isRunning ? Colors.white : Color(0xFF8E8E93),
+                      color:
+                          isRunning
+                              ? AppColors.primaryTextColor
+                              : AppColors.secondaryTextColor,
                     ),
 
                     child: Text(formatTime(secondsLeft)),
@@ -190,7 +201,7 @@ class _MainTimerState extends State<MainTimer> {
                       icon: Icon(
                         Icons.keyboard_arrow_down_rounded,
                         size: 50,
-                        color: Color(0xFF8E8E93),
+                        color: AppColors.unselectedIconColor,
                       ),
                     ),
                 ],
@@ -202,7 +213,11 @@ class _MainTimerState extends State<MainTimer> {
               height: 300,
               width: 80,
               decoration: BoxDecoration(
-                color: Color(0xFF1A1A1A),
+                color: AppColors.secondary,
+                border: Border.all(
+                  color: AppColors.hightlightColor,
+                  width: 2,
+                ),
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: RotatedBox(
@@ -210,8 +225,8 @@ class _MainTimerState extends State<MainTimer> {
                 child: LinearProgressIndicator(
                   value: secondsLeft / totalTime,
                   backgroundColor: Colors.transparent,
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF2452FF)),
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.hightlightColor),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
                   minHeight: 300,
                 ),
               ),
@@ -236,7 +251,7 @@ class _MainTimerState extends State<MainTimer> {
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(170, 60),
                           splashFactory: NoSplash.splashFactory,
-                          backgroundColor: Color(0xFF1A1A1A),
+                          backgroundColor: AppColors.activeButtonColor,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -256,7 +271,7 @@ class _MainTimerState extends State<MainTimer> {
                           elevation: 0,
                           minimumSize: Size(170, 60),
                           splashFactory: NoSplash.splashFactory,
-                          backgroundColor: Color(0xFF3778FF),
+                          backgroundColor: AppColors.primaryButtonColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
@@ -276,7 +291,10 @@ class _MainTimerState extends State<MainTimer> {
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(170, 60),
                 splashFactory: NoSplash.splashFactory,
-                backgroundColor: Color(0xFF8B0000),
+                backgroundColor:
+                    timerIsActive
+                        ? AppColors.primaryButtonColor
+                        : AppColors.disabledButtonColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
@@ -297,8 +315,12 @@ class _MainTimerState extends State<MainTimer> {
           width: 360,
           height: 100,
           decoration: BoxDecoration(
+            border: Border.all(
+                  color: AppColors.hightlightColor,
+                  width: 2,
+                ),
             borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Color(0xFF1A1A1A),
+            color: AppColors.secondary,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -308,10 +330,13 @@ class _MainTimerState extends State<MainTimer> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF8E8E93),
+                  color: AppColors.secondaryTextColor,
                 ),
               ),
-              const Text("Study", style: TextStyle(color: Color(0xFF8E8E93))),
+              const Text(
+                "Study",
+                style: TextStyle(color: AppColors.secondaryTextColor),
+              ),
             ],
           ),
         ),

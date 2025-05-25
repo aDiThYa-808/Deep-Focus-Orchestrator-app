@@ -1,14 +1,15 @@
 
+import 'package:app_frontend/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int selectedIndex;
   final ValueChanged<int> onItemTapped;
   const BottomNavBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
-  }) : super(key: key);
+  });
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -29,9 +30,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         onTap: widget.onItemTapped,
         type: BottomNavigationBarType.fixed,
         elevation: 0,
-        backgroundColor: Color(0xFF0E0E0E),
-        selectedItemColor: Color(0xFFFFFFFF),
-        unselectedItemColor: Color(0xFF8E8E93),
+        backgroundColor: AppColors.primary,
+        selectedItemColor: AppColors.selectedIconColor,
+        unselectedItemColor: AppColors.unselectedIconColor,
         showSelectedLabels: false,
         showUnselectedLabels: false,
 

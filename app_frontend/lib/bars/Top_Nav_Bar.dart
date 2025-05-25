@@ -1,3 +1,4 @@
+import 'package:app_frontend/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class TopNav extends StatelessWidget implements PreferredSizeWidget {
@@ -9,20 +10,20 @@ class TopNav extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFF0E0E0E),
+      backgroundColor: AppColors.primary,
       title: const Text(
         'Deep Focus',
         style: TextStyle(
           fontSize: 25,
           fontWeight: FontWeight.bold,
-          color: Color(0xFF8E8E93),
+          color: AppColors.secondaryTextColor
         ),
       ),
       centerTitle: true,
       leading: IconButton(
         onPressed: () {},
         icon: Icon(Icons.menu_rounded),
-        color: Color(0xFF8E8E93),
+        color: AppColors.unselectedIconColor,
         iconSize: 30,
       ),
     );
